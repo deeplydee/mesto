@@ -1,6 +1,6 @@
 .profile__info {
   flex-grow: 1;
-  max-width: 65%;
+  max-width: 62%;
 }
 
 @media screen and (max-width: 768px) {

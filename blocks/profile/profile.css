@@ -1,5 +1,6 @@
 .profile {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin: 0 15.625%;
   padding: 40px 0 51px 0;
