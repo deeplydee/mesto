@@ -6,6 +6,8 @@
 
 @media screen and (max-width: 768px) {
   .profile__info-edit-wrapper {
+    align-self: center;
+    max-width: 140%;
     margin-bottom: 10px;
   }
 }
