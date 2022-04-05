@@ -10,3 +10,7 @@
   color: #000;
   box-sizing: border-box;
 }
+
+.popup__text-input:not(:first-of-type) {
+  margin-top: 22px;
+}
