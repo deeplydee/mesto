@@ -37,6 +37,5 @@
 @import url(../blocks/popup/__text-input/popup__text-input.css);
 @import url(../blocks/popup/__text-input/_edit/popup__text-input_edit_name-profile.css);
 @import url(../blocks/popup/__text-input/_edit/popup__text-input_edit_job-profile.css);
-@import url(../blocks/popup/__form-handlers/popup__form-handlers.css);
 @import url(../blocks/popup/__form-submit/popup__form-submit.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
