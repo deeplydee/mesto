@@ -1,3 +1,30 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
 let formElementEditProfile = document.querySelector('.popup__form'); // Находим форму в DOM
 let nameInput = document.querySelector('.popup__text-input_edit_name-profile'); // Находим поля формы в DOM
 let jobInput = document.querySelector('.popup__text-input_edit_job-profile');
@@ -66,6 +93,27 @@ function openPopupAddCard() {
 function closePopupAddCard() {
   popupAddCard.classList.remove('popup_opened');
 }
+
+//
+
+const listContainer = document.querySelector(".photo-grid__list");
+const template = document.querySelector(".template-cards");
+
+function render() {
+  const html = initialCards.map(getElement);
+  listContainer.prepend(...html);
+}
+
+function getElement(item) {
+  const getElementTemplate = template.content.cloneNode(true);
+  const name = getElementTemplate.querySelector(".photo-grid__title");
+  name.textContent = item.name;
+  const image = getElementTemplate.querySelector(".photo-grid__image");
+  image.src = item.link;
+  return getElementTemplate;
+}
+
+render();
 
 //
 
