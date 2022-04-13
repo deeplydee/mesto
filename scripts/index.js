@@ -83,8 +83,8 @@ function formSubmitHandlerAddCard (evt) { // Обработчик «отправ
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
 
-  const inputNameValue = document.querySelector(".popup__text-input_element_name-add-card").value;
-  const inputLinkValue = document.querySelector(".popup__text-input_element_link-add-card").value;
+  const inputNameValue = document.querySelector('.popup__text-input_element_name-add-card').value;
+  const inputLinkValue = document.querySelector('.popup__text-input_element_link-add-card').value;
   const element = getElement({name: inputNameValue, image: inputLinkValue});
   listContainer.prepend(element);
 
@@ -102,7 +102,7 @@ function closePopupAddCard() {
 
 //
 
-const listContainer = document.querySelector(".photo-grid__list");
+const listContainer = document.querySelector('.photo-grid__list');
 const template = document.querySelector(".template-cards");
 
 function render() {
@@ -112,11 +112,19 @@ function render() {
 
 function getElement(item) {
   const getElementTemplate = template.content.cloneNode(true);
-  const name = getElementTemplate.querySelector(".photo-grid__title");
+  const name = getElementTemplate.querySelector('.photo-grid__title');
   name.textContent = item.name;
-  const image = getElementTemplate.querySelector(".photo-grid__image");
+  const image = getElementTemplate.querySelector('.photo-grid__image');
   image.src = item.link;
+
+  const likeCard = getElementTemplate.querySelector('.photo-grid__like');
+  likeCard.addEventListener('click', likeCards);
+
   return getElementTemplate;
+}
+
+function likeCards(evt) {
+  evt.target.classList.toggle('photo-grid__like_active');
 }
 
 render();
