@@ -83,10 +83,16 @@ function formSubmitHandlerAddCard (evt) { // Обработчик «отправ
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
 
-  closePopupAddCard()
+  const inputNameValue = document.querySelector(".popup__text-input_element_name-add-card").value;
+  const inputLinkValue = document.querySelector(".popup__text-input_element_link-add-card").value;
+  const element = getElement({name: inputNameValue, image: inputLinkValue});
+  listContainer.prepend(element);
+
+  closePopupAddCard();
 }
 
 function openPopupAddCard() {
+  formElementAddCard.reset();
   popupAddCard.classList.add('popup_opened');
 }
 
