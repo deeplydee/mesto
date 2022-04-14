@@ -120,11 +120,19 @@ function getElement(item) {
   const likeCard = getElementTemplate.querySelector('.photo-grid__like');
   likeCard.addEventListener('click', likeCards);
 
+  const deleteCard = getElementTemplate.querySelector('.photo-grid__delete-button');
+  deleteCard.addEventListener('click', deleteCards);
+
   return getElementTemplate;
 }
 
 function likeCards(evt) {
   evt.target.classList.toggle('photo-grid__like_active');
+}
+
+function deleteCards(evt) {
+  const element = evt.target.closest(".photo-grid__item");
+  element.remove();
 }
 
 render();
