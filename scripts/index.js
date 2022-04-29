@@ -25,10 +25,14 @@ const listContainer = document.querySelector('.photo-grid__list');
 const template = document.querySelector('.template-card');
 
 function openPopup(popupElement) {
+  document.addEventListener('keyup', closePressButton);
+  popupElement.addEventListener('mouseup', closeClickOverlay);
   popupElement.classList.add('popup_is-opened');
 }
 
 function closePopup(popupElement) {
+  document.removeEventListener('keyup', closePressButton);
+  popupElement.removeEventListener('mouseup', closeClickOverlay);
   popupElement.classList.remove('popup_is-opened');
 }
 
@@ -99,6 +103,19 @@ function likeCard(evt) {
 
 function deleteCard(evt) {
   evt.target.closest('.card').remove();
+}
+
+function closePressButton(evt) {
+  if (evt.key === 'Escape') {
+    const popupIsOpened = document.querySelector('.popup_is-opened');
+    closePopup(popupIsOpened);
+  }
+}
+
+function closeClickOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.target);
+  }
 }
 
 renderInitialCards();
