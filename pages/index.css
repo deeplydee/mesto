@@ -40,7 +40,11 @@
 @import url(../blocks/popup/__main-container/popup__main-container.css);
 @import url(../blocks/popup/__form-input-container/popup__form-input-container.css);
 @import url(../blocks/popup/__data-input/popup__data-input.css);
+@import url(../blocks/popup/__data-input/_type/popup__data-input_type_error.css);
+@import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/popup/__error/_visible/popup__error_visible.css);
 @import url(../blocks/popup/__form-submit/popup__form-submit.css);
+@import url(../blocks/popup/__form-submit/_type/popup__form-submit_type_disabled.css);
 @import url(../blocks/popup/_is-opened/popup_is-opened.css);
 
 @import url(../blocks/overview/overview.css);

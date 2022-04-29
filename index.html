@@ -60,6 +60,7 @@
         <form
           class="popup__form popup__form_type_profile-edit"
           name="profile-edit"
+          novalidate
         >
           <div class="popup__main-container">
             <fieldset class="popup__form-input-container">
@@ -69,14 +70,28 @@
                 name="profile-name"
                 placeholder="Имя"
                 required
+                minlength="2"
+                maxlength="40"
+                id="profile-name-input"
               />
+              <span
+                class="popup__error popup__error_visible"
+                id="profile-name-input-error"
+              ></span>
               <input
                 class="popup__data-input popup__data-input_type_profile-description"
                 type="text"
                 name="profile-description"
                 placeholder="О себе"
                 required
+                minlength="2"
+                maxlength="200"
+                id="profile-description-input"
               />
+              <span
+                class="popup__error popup__error_visible"
+                id="profile-description-input-error"
+              ></span>
             </fieldset>
             <button
               class="popup__form-submit"
@@ -98,7 +113,11 @@
           aria-label="Закрыть"
         ></button>
         <h2 class="popup__form-heading">Новое место</h2>
-        <form class="popup__form popup__form_type_card-add" name="card-add">
+        <form
+          class="popup__form popup__form_type_card-add"
+          name="card-add"
+          novalidate
+        >
           <div class="popup__main-container">
             <fieldset class="popup__form-input-container">
               <input
@@ -107,14 +126,26 @@
                 name="card-name"
                 placeholder="Название"
                 required
+                minlength="2"
+                maxlength="30"
+                id="card-name-input"
               />
+              <span
+                class="popup__error popup__error_visible"
+                id="card-name-input-error"
+              ></span>
               <input
                 class="popup__data-input popup__data-input_type_card-link"
                 type="url"
                 name="card-link"
                 placeholder="Ссылка на картинку"
                 required
+                id="card-link-input"
               />
+              <span
+                class="popup__error popup__error_visible"
+                id="card-link-input-error"
+              ></span>
             </fieldset>
             <button
               class="popup__form-submit"
@@ -163,5 +194,6 @@
 
     <script src="scripts/cards.js"></script>
     <script src="scripts/index.js"></script>
+    <script src="scripts/validate.js"></script>
   </body>
 </html>
