@@ -1,10 +1,10 @@
-const allSelectors = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__data-input',
   submitButtonSelector: '.popup__form-submit',
   inactiveButtonClass: 'popup__form-submit_type_disabled',
-  inputErrorClass: 'popup__data-input_type_error', //border-bottom
-  errorClass: 'popup__error_visible' //span
+  inputErrorClass: 'popup__data-input_type_error',
+  errorClass: 'popup__error_visible'
 }
 
 function enableValidation(config) {
@@ -25,6 +25,7 @@ function setEventListeners(config, formElement) {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(config, formElement, inputElement);
+      toggleButtonState(config, formElement);
     });
   });
 };
@@ -42,8 +43,6 @@ function checkInputValidity(config, formElement, inputElement) {
   } else {
     hideInputError(config, formElement, inputElement);
   }
-
-  toggleButtonState(config, formElement);
 };
 
 function showInputError(config, formElement, inputElement, errorMessage) {
@@ -62,8 +61,7 @@ function hideInputError(config, formElement, inputElement) {
   errorElement.textContent = '';
 };
 
-function clearErrors(formElement) {
-  const config = allSelectors;
+function clearErrors(config, formElement) {
   const inputElement = Array.from(formElement.querySelectorAll(config.inputSelector));
 
   inputElement.forEach((inputElement) => {
@@ -71,4 +69,4 @@ function clearErrors(formElement) {
   });
 }
 
-enableValidation(allSelectors);
+enableValidation(validationConfig);

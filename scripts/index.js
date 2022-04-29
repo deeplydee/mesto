@@ -113,33 +113,30 @@ function closePressButton(evt) {
 }
 
 function closeClickOverlay(evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.target);
+  if (
+    evt.target === evt.currentTarget ||
+    evt.target.classList.contains('popup__close-button')
+  ) {
+    closePopup(evt.currentTarget);
   }
 }
 
 renderInitialCards();
 
 buttonOpenPopupEditProfile.addEventListener('click', () => {
-  clearErrors(popupEditProfileForm);
+  clearErrors(validationConfig, popupEditProfileForm);
   openPopupEditProfile();
-  toggleButtonState(allSelectors, popupEditProfileForm);
+  toggleButtonState(validationConfig, popupEditProfileForm);
   openPopup(popupEditProfile);
 });
 
 buttonOpenPopupAddCard.addEventListener('click', () => {
   popupAddCardForm.reset();
-  clearErrors(popupAddCardForm);
-  toggleButtonState(allSelectors, popupAddCardForm);
+  clearErrors(validationConfig, popupAddCardForm);
+  toggleButtonState(validationConfig, popupAddCardForm);
   openPopupAddCard();
 });
 
 popupEditProfileForm.addEventListener('submit', handleSubmitEditProfileForm);
 
 popupAddCardForm.addEventListener('submit', handleSubmitAddCardForm);
-
-popupCloseButton.forEach((element) =>
-  element.addEventListener('click', () => {
-    closePopup(element.closest('.popup'));
-  })
-);
