@@ -36,7 +36,7 @@ function closePopup(popupElement) {
   popupElement.classList.remove('popup_is-opened');
 }
 
-function openPopupEditProfile() {
+function setInputsProfileData() {
   popupEditProfileNameInput.value = profileName.textContent;
   popupEditProfileDescriptionInput.value = profileDescription.textContent;
 }
@@ -84,7 +84,7 @@ function getElement(item) {
   image.src = item.link;
   image.alt = item.name;
 
-  cardLikeButton.addEventListener('click', likeCard);
+  cardLikeButton.addEventListener('click', toggleLikeCard);
   cardDeleteButton.addEventListener('click', deleteCard);
 
   image.addEventListener('click', () => {
@@ -97,7 +97,7 @@ function getElement(item) {
   return elementTemplate;
 }
 
-function likeCard(evt) {
+function toggleLikeCard(evt) {
   evt.target.classList.toggle('card__like-button_active');
 }
 
@@ -125,7 +125,7 @@ renderInitialCards();
 
 buttonOpenPopupEditProfile.addEventListener('click', () => {
   clearErrors(validationConfig, popupEditProfileForm);
-  openPopupEditProfile();
+  setInputsProfileData();
   toggleButtonState(validationConfig, popupEditProfileForm);
   openPopup(popupEditProfile);
 });
