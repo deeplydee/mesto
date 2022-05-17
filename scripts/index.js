@@ -2,7 +2,6 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
 import { initialCards } from './cards.js';
-import * as validate from './validate.js';
 
 const buttonOpenPopupEditProfile = document.querySelector('.profile__edit-button');
 
@@ -25,6 +24,30 @@ const popupCloseButton = document.querySelectorAll('.popup__close-button');
 
 const listContainer = document.querySelector('.photo-grid__list');
 const template = document.querySelector('.template-card');
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__data-input',
+  submitButtonSelector: '.popup__form-submit',
+  inactiveButtonClass: 'popup__form-submit_type_disabled',
+  inputErrorClass: 'popup__data-input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
+const EditProfileFormValidator = new FormValidator(validationConfig, popupEditProfileForm);
+EditProfileFormValidator.enableValidation();
+
+const AddCardFormValidator = new FormValidator(validationConfig, popupAddCardForm);
+AddCardFormValidator.enableValidation();
+
+const renderElements = (data) => {
+  const card = new Card(data);
+  return card.generateCard();
+}
+
+initialCards.forEach((item) => {
+  listContainer.append(renderElements(item));
+});
 
 export function openPopup(popupElement) {
   document.addEventListener('keyup', closePressButton);
@@ -63,7 +86,7 @@ function openPopupAddCard() {
 function handleSubmitAddCardForm (evt) {
   evt.preventDefault();
 
-  const element = getElement({name: popupAddCardNameInput.value, link: popupAddCardLinkInput.value});
+  const element = renderElements({name: popupAddCardNameInput.value, link: popupAddCardLinkInput.value});
   listContainer.prepend(element);
 
   closePopup(popupAddCard);
@@ -85,26 +108,17 @@ function closeClickOverlay(evt) {
   }
 }
 
-const renderElements = (data) => {
-  const card = new Card(data);
-  return card.generateCard();
-}
-
-initialCards.forEach((item) => {
-  listContainer.append(renderElements(item));
-});
-
 buttonOpenPopupEditProfile.addEventListener('click', () => {
-  clearErrors(validationConfig, popupEditProfileForm);
+  EditProfileFormValidator.clearErrors();
   setInputsProfileData();
-  toggleButtonState(validationConfig, popupEditProfileForm);
+  EditProfileFormValidator.toggleButtonState();
   openPopup(popupEditProfile);
 });
 
 buttonOpenPopupAddCard.addEventListener('click', () => {
   popupAddCardForm.reset();
-  clearErrors(validationConfig, popupAddCardForm);
-  toggleButtonState(validationConfig, popupAddCardForm);
+  AddCardFormValidator.clearErrors();
+  AddCardFormValidator.toggleButtonState();
   openPopupAddCard();
 });
 
