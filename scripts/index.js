@@ -1,7 +1,8 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
-import { initialCards } from './cards.js';
+import { initialCards } from './utils/cards.js';
+import { validationConfig } from './utils/constants.js';
 
 const buttonOpenPopupEditProfile = document.querySelector('.profile__edit-button');
 
@@ -24,15 +25,6 @@ const popupCloseButton = document.querySelectorAll('.popup__close-button');
 
 const listContainer = document.querySelector('.photo-grid__list');
 const template = document.querySelector('.template-card');
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__data-input',
-  submitButtonSelector: '.popup__form-submit',
-  inactiveButtonClass: 'popup__form-submit_type_disabled',
-  inputErrorClass: 'popup__data-input_type_error',
-  errorClass: 'popup__error_visible'
-}
 
 const EditProfileFormValidator = new FormValidator(validationConfig, popupEditProfileForm);
 EditProfileFormValidator.enableValidation();
