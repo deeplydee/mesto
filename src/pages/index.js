@@ -1,4 +1,4 @@
-import '../pages/index.css'
+import '../pages/index.css';
 
 import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
@@ -16,37 +16,40 @@ import {
   cardListSelector,
 
   buttonOpenPopupEditProfile,
-  popupEditProfileForm,
   popupEditProfileNameInput,
   popupEditProfileDescriptionInput,
 
   buttonOpenPopupAddCard,
-  popupAddCardForm,
-  popupAddCardNameInput,
-  popupAddCardLinkInput,
 } from '../utils/constants.js';
 
-const EditProfileFormValidator = new FormValidator(
-  validationConfig,
-  popupEditProfileForm
-);
+const formValidators = {};
 
-const AddCardFormValidator = new FormValidator(
-  validationConfig,
-  popupAddCardForm
-);
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(validationConfig, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
 
 const cardList = new Section(
   {
     data: initialCards,
     renderer: (item) => {
-      const card = new Card(item, '.template-card', handleCardClick);
-      const cardElement = card.generateCard();
-      cardList.addItem(cardElement);
+      cardList.addItem(createCard(item));
     },
   },
   cardListSelector
 );
+
+const createCard = (item) => {
+  const card = new Card(item, '.template-card', handleCardClick);
+  const cardElement = card.generateCard();
+
+  return cardElement;
+};
 
 const popupWithImage = new PopupWithImage('.popup_type_overview');
 
@@ -54,67 +57,51 @@ const handleCardClick = (data) => {
   popupWithImage.open(data);
 };
 
-const popupAddCard = new PopupWithForm(
-  '.popup_type_card-add',
-  handleSubmitAddCardForm
-);
+const popupAddCard = new PopupWithForm({
+  popupSelector: '.popup_type_card-add',
+  handleFormSubmit: (formData) => {
+    cardList.addItemPrepend(createCard(formData));
+  },
+});
 
-const popupEditProfile = new PopupWithForm(
-  '.popup_type_profile-edit',
-  handleSubmitEditProfileForm
-);
+const popupEditProfile = new PopupWithForm({
+  popupSelector: '.popup_type_profile-edit',
+  handleFormSubmit: (formData) => {
+    profileInfo.setUserInfo({
+      profileName: formData.name,
+      profileDescription: formData.description,
+    });
+  },
+});
 
 const profileInfo = new UserInfo({
   profileNameSelector: '.profile__name',
   profileDescriptionSelector: '.profile__description',
 });
 
-function setInputsProfileData() {
-  const { profileName, profileDescription } = profileInfo.getUserInfo();
+function setInputsProfileData({ profileName, profileDescription }) {
   popupEditProfileNameInput.value = profileName;
   popupEditProfileDescriptionInput.value = profileDescription;
 }
 
-function handleSubmitEditProfileForm() {
-  profileInfo.setUserInfo({
-    profileName: popupEditProfileNameInput.value,
-    profileDescription: popupEditProfileDescriptionInput.value,
-  });
-}
-
-function handleSubmitAddCardForm() {
-  const data = {
-    name: popupAddCardNameInput.value,
-    link: popupAddCardLinkInput.value,
-  };
-
-  cardList.addItemPrepend(generateCard(data));
-}
-
-function generateCard(item) {
-  const card = new Card(item, '.template-card', handleCardClick);
-  const cardElement = card.generateCard();
-
-  return cardElement;
-}
-
 buttonOpenPopupEditProfile.addEventListener('click', () => {
-  setInputsProfileData();
-  EditProfileFormValidator.clearErrors();
-  EditProfileFormValidator.toggleButtonState();
+  const getInfo = profileInfo.getUserInfo();
+  setInputsProfileData({
+    profileName: getInfo.profileName,
+    profileDescription: getInfo.profileDescription,
+  });
+  formValidators['profile-edit'].clearErrors();
   popupEditProfile.open();
 });
 
 buttonOpenPopupAddCard.addEventListener('click', () => {
-  AddCardFormValidator.clearErrors();
-  AddCardFormValidator.toggleButtonState();
+  formValidators['card-add'].clearErrors();
   popupAddCard.open();
 });
 
-cardList.renderItems();
+enableValidation(validationConfig);
 
-EditProfileFormValidator.enableValidation();
-AddCardFormValidator.enableValidation();
+cardList.renderItems();
 
 popupEditProfile.setEventListeners();
 popupAddCard.setEventListeners();

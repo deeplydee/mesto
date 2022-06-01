@@ -13,7 +13,9 @@ module.exports = {
     publicPath: '',
   },
   mode: 'development',
+  devtool: 'cheap-module-source-map',
   devServer: {
+    // static: {directory: path.join(__dirname, './dist')},
     open: true,
     compress: true,
     port: 8080

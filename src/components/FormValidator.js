@@ -13,9 +13,6 @@ export class FormValidator {
     this._buttonElement = this._formElement.querySelector(
       this._submitButtonSelector
     );
-    this._inputElement = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    );
   }
 
   enableValidation = () => {
@@ -66,7 +63,9 @@ export class FormValidator {
   };
 
   clearErrors = () => {
-    this._inputElement.forEach((inputElement) => {
+    this.toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
   };
