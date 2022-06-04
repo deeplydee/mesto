@@ -45,6 +45,7 @@ export class Card {
 
   _handleClickDelete = () => {
     this._card.remove();
+    this._card = null;
   };
 
   _toggleLikeCard = () => {

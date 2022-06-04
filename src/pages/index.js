@@ -16,8 +16,6 @@ import {
   cardListSelector,
 
   buttonOpenPopupEditProfile,
-  popupEditProfileNameInput,
-  popupEditProfileDescriptionInput,
 
   buttonOpenPopupAddCard,
 } from '../utils/constants.js';
@@ -79,24 +77,15 @@ const profileInfo = new UserInfo({
   profileDescriptionSelector: '.profile__description',
 });
 
-function setInputsProfileData({ profileName, profileDescription }) {
-  popupEditProfileNameInput.value = profileName;
-  popupEditProfileDescriptionInput.value = profileDescription;
-}
-
 buttonOpenPopupEditProfile.addEventListener('click', () => {
   const getInfo = profileInfo.getUserInfo();
-  setInputsProfileData({
-    profileName: getInfo.profileName,
-    profileDescription: getInfo.profileDescription,
-  });
+  popupEditProfile.open({ name: getInfo.profileName, description: getInfo.profileDescription });
   formValidators['profile-edit'].clearErrors();
-  popupEditProfile.open();
 });
 
 buttonOpenPopupAddCard.addEventListener('click', () => {
   formValidators['card-add'].clearErrors();
-  popupAddCard.open();
+  popupAddCard.open({'name': '', 'link': ''});
 });
 
 enableValidation(validationConfig);

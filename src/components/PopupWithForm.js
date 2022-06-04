@@ -16,6 +16,12 @@ export class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  _setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._popupForm.addEventListener('submit', (evt) => {
@@ -28,5 +34,10 @@ export class PopupWithForm extends Popup {
   close() {
     super.close();
     this._popupForm.reset();
+  }
+
+  open(inputs = []) {
+    super.open();
+    this._setInputValues(inputs);
   }
 }
