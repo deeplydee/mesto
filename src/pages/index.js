@@ -175,7 +175,7 @@ const popupChangeAvatar = new PopupWithForm({
 const popupWithImage = new PopupWithImage('.popup_type_overview');
 
 const popupWithConfirmation = new PopupWithConfirmation(
-  '.popup_type_сonfirmation'
+  '.popup_type_сonfirm'
 );
 
 buttonOpenPopupEditProfile.addEventListener('click', () => {
