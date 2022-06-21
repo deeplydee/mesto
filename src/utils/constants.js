@@ -34,3 +34,7 @@ export const popupAddCardNameInput = document.querySelector(
 export const popupAddCardLinkInput = document.querySelector(
   '.popup__data-input_type_card-link'
 );
+
+export const buttonOpenPopupChangeAvatar = document.querySelector(
+  '.profile__avatar-button'
+);

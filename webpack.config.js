@@ -13,7 +13,7 @@ module.exports = {
     publicPath: '',
   },
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   devServer: {
     static: {
       directory: path.resolve(__dirname, './dist')
