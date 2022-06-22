@@ -4,6 +4,7 @@ export class PopupWithConfirmation extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this._popupForm = this._popup.querySelector('.popup__form');
+    this._submitFormButton = this._popup.querySelector('.popup__form-submit');
   }
 
   setConfirmationHandler(func) {
@@ -16,5 +17,11 @@ export class PopupWithConfirmation extends Popup {
       evt.preventDefault();
       this._submitHandler();
     });
+  }
+
+  loading(isLoading) {
+    isLoading
+      ? (this._submitFormButton.textContent = 'Удаление...')
+      : (this._submitFormButton.textContent = 'Да');
   }
 }

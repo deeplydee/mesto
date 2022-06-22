@@ -91,6 +91,7 @@ const createCard = (data) => {
       handleDeleteCard: () => {
         popupWithConfirmation.open();
         popupWithConfirmation.setConfirmationHandler(() => {
+          popupWithConfirmation.loading(true);
           api
             .deleteCard(card.getId())
             .then(() => {
@@ -99,6 +100,9 @@ const createCard = (data) => {
             })
             .catch((err) => {
               console.log(err);
+            })
+            .finally(() => {
+              popupWithConfirmation.loading(false);
             });
         });
       },
@@ -193,8 +197,7 @@ buttonOpenPopupAddCard.addEventListener('click', () => {
 });
 
 buttonOpenPopupChangeAvatar.addEventListener('click', () => {
-  const getInfo = profileInfo.getUserInfo();
-  popupChangeAvatar.open({ avatar: getInfo.profileAvatar });
+  popupChangeAvatar.open({ avatar: '' });
   formValidators['avatar'].clearErrors();
 });
 
